@@ -1,0 +1,27 @@
+{
+  "name": "api.frontend",
+  "version": "1.0.0",
+  "description": "api para gestionar contratación que se brinda en la Dirección Jurídica de la cervecería Bucanero",
+  "main": "app.js",
+  "scripts": {
+    "start": "env-cmd -e default,development -r .env.js nodemon app.js"
+  },
+  "author": "Danay & Miguel",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.5",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "env-cmd": "^10.1.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.3",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "stylelint-prettier": "^1.2.0"
+  }
+}
