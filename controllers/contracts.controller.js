@@ -58,7 +58,8 @@ exports.create = async(req, res) =>{
         totalValue: req.body.totalValue,
         currencyPay: req.body.currencyPay,
         exportation: req.body.exportation,
-        observations: req.body.observations
+        observations: req.body.observations,
+        estate: 'Ejecución'
     }
     
     try {

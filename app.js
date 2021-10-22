@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 var cors = require('cors');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+const configMensaje = require('./config/configMensaje');
 const app = express();
 
 //Databse
@@ -16,12 +19,13 @@ const db = require('./config/database');
 
 // //Allow api function to apps
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, cache-control');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-  });
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, authorization-token-v1, api-key-v1, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, cache-control');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
 
   //MiddleWares Body-Parser
   app.use(express.json());
@@ -30,7 +34,7 @@ app.use((req, res, next) => {
    }));
    app.use(cors());
 
-    //MiddleWare Static
+  //MiddleWare Static
    app.use(express.static('storage'));
 
 //simple route
@@ -46,6 +50,12 @@ app.use( '/api/users', usersRoute);
 //contracts
 const contractsRoute = require('./routes/contracts.route');
 app.use( '/api/contracts', contractsRoute);
+
+//email
+app.post('/api/sendemail',multipartMiddleware, (req, res) => {
+ configMensaje(req.body, req.files);
+  res.status(200).send();
+ })
 
 //sent listen port
 const PORT = process.env.PORT;

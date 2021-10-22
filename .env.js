@@ -9,7 +9,9 @@ module.exports = Promise.resolve({
     PORT: 3001,
     VERSION: app.version,
     TITLE: app.title,
-    DESCRIPTION: app.description
+    DESCRIPTION: app.description,
+    USER_ACCOUNT_GMAIL: 'hugocruzlfc@gmail.com',
+    PASS_ACCOUNT_GMAIL: 'Hugocruz29*'
   },
 
   // used on tests running.
