@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 
 
 const contracts = require('../models/contracts.model');
+const suplements = require('../models/suplements.model');
 const Op = Sequelize.Op;
 
 
@@ -11,7 +12,14 @@ const Op = Sequelize.Op;
 exports.allcontracts = async(req, res) =>{
     
     try {
-        const allContracts = await contracts.findAll();
+        const allContracts = await contracts.findAll(
+            {order: [['id', 'asc']],include: [
+                {
+                  model: suplements,
+                  as: 'suplements'
+                }
+            ]}
+        );
         if(contracts){
             res.status(200).json(allContracts);
         }else{
@@ -26,7 +34,13 @@ exports.allcontracts = async(req, res) =>{
 exports.contractById = async(req, res) =>{
     let { id } = req.params;
     try {
-        const contractById = await contracts.findByPk(id);
+        const contractById = await contracts.findByPk(id,
+            {order: [['id', 'asc']],include: [
+                {
+                  model: suplements,
+                  as: 'suplements'
+                }
+            ]});
         if(contractById ){
             res.status(200).json(contractById);
         }else{
@@ -42,16 +56,17 @@ exports.contractById = async(req, res) =>{
 exports.create = async(req, res) =>{
     const newContracts = {
        
-        exactNumber: req.body.exactNumber,
+       // exactNumber: req.body.exactNumber,
         sucursal: req.body.sucursal,
         signatureDate: req.body.signatureDate,
         supplierClient: req.body.supplierClient,
         aplicantArea: req.body.aplicantArea,
-        supplementContract: req.body.supplementContract,
+        contractType: req.body.contractType,
         object: req.body.object,
         processor: req.body.processor,
         tramitador: req.body.tramitador,
         effect: req.body.effect,
+        dayYear: req.body.dayYear,
         wayToPay: req.body.wayToPay,
         termToPay: req.body.termToPay,
         nationalInternational: req.body.nationalInternational,

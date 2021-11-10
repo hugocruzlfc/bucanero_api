@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
+const suplements = require('../models/suplements.model');
+
 const contracts = db.define('contracts', {
     id:{
         allowNull: false,
@@ -23,7 +25,7 @@ const contracts = db.define('contracts', {
     aplicantArea: { //Área rectora/solicitante 
         type: Sequelize.STRING
     },
-    supplementContract: { //Tipo de contrato o suplemento
+    contractType: { //Tipo de contrato o suplemento
         type: Sequelize.STRING
     },
     object: { // Objeto
@@ -33,7 +35,10 @@ const contracts = db.define('contracts', {
         type: Sequelize.STRING
     },
     effect: { //Vigencia.
-        type: Sequelize.DATEONLY
+        type: Sequelize.INTEGER
+    },
+    dayYear: { //tipo de vigencia, día o año.
+        type: Sequelize.STRING
     },
     wayToPay: { //Forma de pago.
         type: Sequelize.STRING
@@ -69,5 +74,21 @@ const contracts = db.define('contracts', {
         type: Sequelize.DATE
     }
 })
+
+contracts.hasMany(suplements, {
+    foreignKey: 'contractId',   
+    onDelete: 'CASCADE',
+    as: 'suplements',
+  });
+  
+  suplements.belongsTo(contracts, {
+    foreignKey: 'contractId',
+    as: 'contracts',
+  });
+
+
+
+
+
 
 module.exports = contracts;

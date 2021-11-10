@@ -51,14 +51,24 @@ app.use( '/api/users', usersRoute);
 const contractsRoute = require('./routes/contracts.route');
 app.use( '/api/contracts', contractsRoute);
 
+//suplements
+const suplementsRoute = require('./routes/suplements.route');
+app.use( '/api/sumplements', suplementsRoute);
+
 //email
-app.post('/api/sendemail',multipartMiddleware, (req, res) => {
- configMensaje(req.body, req.files);
+app.post('/api/sendemail',(req, res) => {
+  console.log(req.body);
+ configMensaje(req.body);
   res.status(200).send();
- })
+ });
+
+// app.post('/api/sendemail',multipartMiddleware, (req, res) => {
+//  configMensaje(req.body, req.files);
+//   res.status(200).send();
+//  })
 
 //sent listen port
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`API running on port ${PORT}.`)
-})
+});
