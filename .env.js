@@ -10,8 +10,8 @@ module.exports = Promise.resolve({
     VERSION: app.version,
     TITLE: app.title,
     DESCRIPTION: app.description,
-    USER_ACCOUNT_GMAIL: 'hugocruzlfc@gmail.com',
-    PASS_ACCOUNT_GMAIL: 'Hugocruz29*'
+    USER_ACCOUNT_GMAIL: '', //aqui va el email
+    PASS_ACCOUNT_GMAIL: '' // el password
   },
 
   // used on tests running.

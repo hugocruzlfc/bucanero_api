@@ -11,7 +11,7 @@ module.exports = (formulario) => {
         });
     const mailOptions = {
     from: `”${formulario.asunto}”<${process.env.USER_ACCOUNT_GMAIL}>`,
-    to: 'hcruz@acl.cl',
+    to: 'usuario@bucanero.com.cu', // email para quien va diriguido
     html: `
     <strong>De:</strong> ${formulario.nombre} <br/>
     <strong>E-mail:</strong> ${process.env.USER_ACCOUNT_GMAIL} <br/>

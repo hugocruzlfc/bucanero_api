@@ -61,7 +61,7 @@ const contracts = db.define('contracts', {
     observations: { //Observaciones.
         type: Sequelize.STRING
     },
-    contractAttached: { //Observaciones.
+    contractAttached: { //foto adjunta.
         type: Sequelize.STRING
     },
     estate: { //estado ejecución o vencido
@@ -85,10 +85,6 @@ contracts.hasMany(suplements, {
     foreignKey: 'contractId',
     as: 'contracts',
   });
-
-
-
-
 
 
 module.exports = contracts;
