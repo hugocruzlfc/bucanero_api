@@ -67,6 +67,9 @@ const contracts = db.define('contracts', {
     estate: { //estado ejecución o vencido
         type: Sequelize.STRING
     },
+    userId: { //estado ejecución o vencido
+        type: Sequelize.INTEGER
+    },
     createdAt: {
         type: Sequelize.DATE
     },

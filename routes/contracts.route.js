@@ -5,6 +5,7 @@ const upload = require('../libs/storage');
 
 //Routes with Controllers
 router.get('/all', contractsController.allcontracts);
+router.get('/all/:id', contractsController.allContractsByUser);
 router.get('/byid/:id', contractsController.contractById);
 router.post('/create', contractsController.create);
 router.post('/atached/:id', upload.single('contractAttached'), contractsController.atachedContrtact);

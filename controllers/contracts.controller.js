@@ -16,14 +16,39 @@ exports.allcontracts = async(req, res) =>{
             {order: [['id', 'asc']],include: [
                 {
                   model: suplements,
-                  as: 'suplements'
+                  as: 'suplements',
+                  order: [['id', 'asc']]
                 }
             ]}
         );
-        if(contracts){
+        if(allContracts){
             res.status(200).json(allContracts);
         }else{
             res.sendStatus(404);
+        }
+    } catch (error) {
+              console.error(error)
+    }
+    
+};
+
+
+exports.allContractsByUser = async(req, res) =>{
+    let {id} = req.params;
+    try {
+        const contractsByuser = await contracts.findAll(
+            {where:{ userId: id},
+            order: [['id', 'asc']],
+            include: [
+                {
+                  model: suplements,
+                  as: 'suplements',
+                  order: [['id', 'asc']]
+                }
+            ]}
+        );
+        if(contractsByuser){
+            res.status(200).json(contractsByuser);
         }
     } catch (error) {
               console.error(error)
@@ -74,6 +99,7 @@ exports.create = async(req, res) =>{
         currencyPay: req.body.currencyPay,
         exportation: req.body.exportation,
         observations: req.body.observations,
+        userId: req.body.userId,
         estate: 'Ejecución'
     }
     

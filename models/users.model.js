@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 
-const incident = require('./contracts.model');
+const contract = require('./contracts.model');
 
 
 const users = db.define('users', {
@@ -41,6 +41,19 @@ const users = db.define('users', {
     },
 
 })
+
+
+
+users.hasMany(contract, {
+    foreignKey: 'userId',   
+    onDelete: 'CASCADE',
+    as: 'contracts',
+  });
+  
+  contract.belongsTo(users, {
+    foreignKey: 'userId',
+    as: 'users',
+  });
 
 
 
