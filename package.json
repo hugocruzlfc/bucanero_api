@@ -6,7 +6,7 @@
   "scripts": {
     "start": "env-cmd -e default,development -r .env.js nodemon app.js"
   },
-  "author": "Danay & Miguel",
+  "author": "Mariana y Ernesto",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.4.5",
