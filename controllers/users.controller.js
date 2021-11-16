@@ -109,13 +109,15 @@ exports.login = async(req, res) =>{
             where: {
               email
             }});
-            if (bcrypt.compareSync(password, findUser.password)) {
+            if(findUser){
+             if (bcrypt.compareSync(password, findUser.password)) {
                 res.status(200).json({auth: true, user: findUser });
-            }
-        // if(findUser){
-        //    // const token = generateAuthToken(findUser.name, findUser.email); 
-            
-        // }
+           }
+           else{
+            res.status(200).json({auth: false });
+        }
+        }
+          
         else{
             res.status(200).json({auth: false });
         }
