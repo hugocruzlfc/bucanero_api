@@ -1,5 +1,6 @@
 const db = require('../config/database');
 const Sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
 const users = require('../models/users.model');
 const Op = Sequelize.Op;
 
@@ -38,6 +39,8 @@ exports.userById = async(req, res) =>{
 
 
 exports.create = async(req, res) =>{
+    const salt = bcrypt.genSaltSync(10, 'a');
+    const passwordEncrypt = bcrypt.hashSync(req.body.password, salt);
     const newUser = {
        
         name: req.body.name,
@@ -45,7 +48,7 @@ exports.create = async(req, res) =>{
         dni: req.body.dni,
         celular: req.body.celular,
         address: req.body.address,
-        password: req.body.password,
+        password: passwordEncrypt,
         email: req.body.email
     }
     
@@ -64,7 +67,10 @@ exports.create = async(req, res) =>{
 
 exports.update = async(req, res) =>{
     const id = req.params.id;
-    
+    const salt = bcrypt.genSaltSync(10, 'a');
+    const passwordEncrypt = bcrypt.hashSync(req.body.password, salt);
+    req.body.password = passwordEncrypt;
+        
     try {
         const num = await users.update(req.body, {where:{ id: id}} );
         if(num == 1){
@@ -101,12 +107,16 @@ exports.login = async(req, res) =>{
     try {
         const findUser = await users.findOne({
             where: {
-              email, password
+              email
             }});
-        if(findUser){
-           // const token = generateAuthToken(findUser.name, findUser.email); 
-            res.status(200).json({auth: true, user: findUser });
-        }else{
+            if (bcrypt.compareSync(password, findUser.password)) {
+                res.status(200).json({auth: true, user: findUser });
+            }
+        // if(findUser){
+        //    // const token = generateAuthToken(findUser.name, findUser.email); 
+            
+        // }
+        else{
             res.status(200).json({auth: false });
         }
     } catch (error) {
